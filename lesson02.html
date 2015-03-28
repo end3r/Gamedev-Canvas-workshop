@@ -12,10 +12,10 @@
 <script>
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d");
-    var x = 10;
-    var y = 10;
-    var dx = 1;
-    var dy = 1;
+    var x = canvas.width/2;
+    var y = canvas.height-30;
+    var dx = 2;
+    var dy = -2;
 
     function draw() {
         ctx.clearRect(0,0,480,320);

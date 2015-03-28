@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Gamedev Workshop materials</title>
+    <title>MDN Breakout Canvas gamedev workshop</title>
     <style>body { width: 650px; margin: 0 auto; }</style>
 </head>
 <body>
@@ -12,8 +12,8 @@
 
 <ul>
 	<li>Online game: tbd</li>
-	<li>GitHub repo: tbd</li>
-	<li>MDN article: tbd</li>
+	<li>GitHub repo: <a href="https://github.com/end3r/Canvas-gamedev-workshop">github.com/end3r/Canvas-gamedev-workshop</a></li>
+	<li>MDN article: <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch</a></li>
 </ul>
 
 <ol>
@@ -30,46 +30,366 @@
 </ol>
 
 <h2 id="canvas">Create the Canvas and draw on it</h2>
-<p>Lorem ipsum dolor sit amet.</p>
-<p>Exercise: change sizes and colors</p>
 
-<!-- <iframe width="100%" height="300" src="https://jsfiddle.net/end3r/mvLqo56r/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe> -->
+<p>Introduction to gamedev from scratch - if you want to learn the game development and don't know JavaScript yet, you should do the Canvas first as the frameworks are just the tools. Learn language first, then learn about the tools that are built with that language. The framework will speed up development and will take care of lots of boring stuff, but you have to know what's going under the hood first to be able to fix it when something is gonna go wrong.</p>
+
+<p>The basic HTML structure (link to HTML learning area), Canvas element.</p>
+
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;title&gt;MDN Breakout&lt;/title&gt;
+    &lt;style&gt;
+    	* { padding: 0; margin: 0; }
+    	canvas { background: #eee; display: block; margin: 0 auto; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;canvas id="myCanvas" width="480" height="320"&gt;&lt;/canvas&gt;
+
+&lt;script&gt;
+	// JavaScript code goes here
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p>Script tags contain JavaScript code. Let's get the handle for Canvas to play with it. Context 2D will give us ability to paint.</p>
+
+<pre>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+ctx.beginPath();
+ctx.rect(20, 40, 50, 50);
+ctx.fillStyle = "#FF0000";
+ctx.fill();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.arc(240, 160, 20, 0, Math.PI*2, true);
+ctx.fillStyle = "green";
+ctx.fill();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.rect(160, 10, 100, 40);
+ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
+ctx.stroke();
+ctx.closePath();
+</pre>
+
+<p>Describe the code that paints something on the screen, everything like: beginPath, rect/arc, fillStyle/fill, closePath.</p>
+
+<p>Here's the first step:</p>
+
+<p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/tzr3kbth/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
+
+<p>Exercise: try changing the size and color of given shapes.</p>
 
 <h2 id="ball">Move the ball</h2>
-<p>Lorem ipsum dolor sit amet.</p>
-<p>Exercise: change speed and direction</p>
+
+<p>Let's make the ball move on the screen. We'll set up the variables for start position and the movement [force]. We'll create a draw function that will paint on the screen every 10 miliseconds with the use of the setInterval function.</p>
+
+<pre>
+var x = canvas.width/2;
+var y = canvas.height-30;
+var dx = 2;
+var dy = -2;
+
+function draw() {
+    ctx.clearRect(0,0,480,320);
+    ctx.beginPath();
+    ctx.arc(x, y, 10, 0, Math.PI*2, true);
+    ctx.fillStyle = "#009900";
+    ctx.fill();
+    ctx.closePath();
+    x += dx;
+    y += dy;
+}
+
+setInterval(draw, 10);
+</pre>
+
+<p>Inside the draw there's the similar code like before for painting the circle. On every [frame] we're clearing the whole Canvas and paint everything again and again. At the end of that code we're adding diff to the x and y positions to make the ball appear like moving.</p>
+
+<p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/mvLqo56r/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
+
+<p>Exercise: try changing the speed or the direction of the moving ball.</p>
 
 <h2 id="bounce">Bounce off the walls</h2>
-<p>Lorem ipsum dolor sit amet.</p>
-<p>Exercise: change color on hit</p>
+
+<p>Move ball to the bottom to play with it. Then check the walls - if the ball is touching the wall, change the direction of movement of the ball.</p>
+
+<pre>
+if(x + dx &gt; canvas.width-10 || x + dx &lt; 10) {
+    dx = -dx;
+}
+if(y + dy &gt; canvas.height-10 || y + dy &lt; 10) {
+    dy = -dy;
+}
+</pre>
+
+<p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/bdaw3yr8/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
+
+<p>Exercise: try changing the color of the ball when it hits the wall.</p>
 
 <h2 id="bricks">Build the brick field</h2>
-<p>Lorem ipsum dolor sit amet.</p>
-<p>Exercise: change positions and number of bricks</p>
+
+<p>A bunch of variables for bricks, loop through and create two-dimentional array and assign x, y and status (that will be used for whether the brick should be painted or not).</p>
+
+<pre>
+var brickRowCount = 5;
+var brickColumnCount = 3;
+var brickWidth = 75;
+var brickHeight = 20;
+var brickPadding = 10;
+var brickOffsetTop = 30;
+var brickOffsetLeft = 30;
+</pre>
+
+<pre>
+var bricks = [];
+for(c=0; c&lt;brickColumnCount; c++) {
+    bricks[c] = [];
+    for(r=0; r&lt;brickRowCount; r++) {
+        bricks[c][r] = { x: 0, y: 0, status: 1 };
+    }
+}
+</pre>
+
+<pre>
+function drawBricks() {
+    for(c=0; c&lt;brickColumnCount; c++) {
+        for(r=0; r&lt;brickRowCount; r++) {
+            if(bricks[c][r].status == 1) {
+                ctx.beginPath();
+                var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
+                var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
+                bricks[c][r].x = brickX;
+                bricks[c][r].y = brickY;
+                ctx.rect(brickX,brickY,brickWidth,brickHeight);
+                ctx.fillStyle = "#0066FF";
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+    }
+}
+</pre>
+
+<pre>
+ctx.clearRect(0,0,480,320);
+drawBricks();
+</pre>
+
+<p>There's that function called drawBricks that will draw bricks on the screen if their status is active.</p>
+
+<p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/8d8pL6qg/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
+
+<p>Exercise: try changing the number of bricks in a row or a column and their positions.</p>
 
 <h2 id="collision">Collision detection</h2>
-<p>Lorem ipsum dolor sit amet.</p>
+
+<p>So we have the running ball and have drew the whole brick field, but the ball is going "through" them. The obvious next step is to have the collision detection, so the ball can bounce off of the given brick removing it from the scene.</p>
+
+<pre>
+function drawBricks() {
+    for(c=0; c&lt;brickColumnCount; c++) {
+        for(r=0; r&lt;brickRowCount; r++) {
+            if(bricks[c][r].status == 1) {
+                ctx.beginPath();
+                var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
+                var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
+                bricks[c][r].x = brickX;
+                bricks[c][r].y = brickY;
+                ctx.rect(brickX,brickY,brickWidth,brickHeight);
+                ctx.fillStyle = "#0066FF";
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+    }
+}
+</pre>
+
+<p>The function is executed in the main draw [function], so we're checking that on every [frame]. Add collisionDetection(); in the draw().</p>
+
+<p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/reL7e4rk/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
+
 <p>Exercise: ?</p>
 
 <h2 id="gameover">Game over</h2>
-<p>Lorem ipsum dolor sit amet.</p>
+
+<p>The ball is bouncing from the bricks, but it will do it indefinitely even if all the bricks are removed. In the specific version you just can't lose - let's work on that.</p>
+
+<pre>
+if(y + dy &lt; 10) {
+    dy = -dy;
+}
+else if(y + dy > canvas.height-10) {
+    if (x > paddleX &amp;&amp; x &lt; paddleX + paddleWidth) {
+        dy = -dy;
+        dx = 10*((x-(paddleX+paddleWidth/2))/paddleWidth);
+    }
+    else {
+        alert("GAME OVER");
+        document.location.reload();
+    }
+}
+</pre>
+
+<p>Now the ball bounces off of the three walls, but when it reaches the floor the game is lost.</p>
+
+<!-- <p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/CODE/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p> -->
+
 <p>Exercise: ?</p>
 
 <h2 id="keyboard">Paddle and keyboard controls</h2>
-<p>Lorem ipsum dolor sit amet.</p>
+
+<p>It's unfair to not have the ability to defend yourself from the ball reaching the [floor]. To fight back we can create a paddle that will deflect the ball and give us the chance to survive.</p>
+
+<pre>
+var paddleHeight = 10;
+var paddleWidth = 75;
+var paddleX = (canvas.width-paddleWidth)/2;
+</pre>
+
+<pre>
+function drawPaddle() {
+    ctx.beginPath();
+    ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+    ctx.fillStyle = "#660099";
+    ctx.fill();
+    ctx.closePath();
+}
+</pre>
+
+<p>Creating a paddle is a simple rectangle. But the ball is falling down in other place than our paddle. We need to be able to control it - let's use the keyboard controls for that.</p>
+
+<pre>
+var rightPressed = false;
+var leftPressed = false;
+</pre>
+
+<pre>
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+</pre>
+
+<pre>
+function keyDownHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = true;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = true;
+    }
+}
+function keyUpHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = false;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = false;
+    }
+}
+</pre>
+
+<pre>
+if(rightPressed &amp;&amp; paddleX &lt; canvas.width-paddleWidth) {
+    paddleX += 5;
+}
+else if(leftPressed &amp;&amp; paddleX &gt; 0) {
+    paddleX -= 5;
+}
+</pre>
+
+<p>If one of the two keys is pressed, then we'll update the paddle position and then draw it there. Thanks to this the survival is entirely in our hands.</p>
+
+<!-- <p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/CODE/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p> -->
+
 <p>Exercise: ?</p>
 
 <h2 id="mouse">Mouse controls</h2>
-<p>Lorem ipsum dolor sit amet.</p>
+
+<p>The keyboard controls are working quite ok, but we can extend that and add an extra controller - the mouse. It's even easier to control the game with the mouse than with the keyboard. All you need is the listened and based on the passed object with the pointer position we'll update the position of the paddle:</p>
+
+<pre>
+document.addEventListener("mousemove", mouseMoveHandler, false);
+</pre>
+
+<pre>
+function mouseMoveHandler(e) {
+    if(e.pageX > paddleWidth/2 &amp;&amp; e.pageX &lt; canvas.width-paddleWidth/2) {
+        paddleX = e.pageX-paddleWidth/2;
+    }
+}
+</pre>
+
+<p>The paddle will follow the position of the mouse cursor, but we're restricting the movement to the size of the Canvas, so it won't dissapear on either sides of it.</p>
+
+<!-- <p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/CODE/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p> -->
+
 <p>Exercise: ?</p>
 
 <h2 id="score">Track the score and win</h2>
-<p>Lorem ipsum dolor sit amet.</p>
+
+<p>Destroying the blocks is cool, but let's count the points based on that, so we have the precise indicator of how many blocks were already destroyed.</p>
+
+<pre>var score = 0;</pre>
+
+<pre>
+function drawScore() {
+    ctx.font="16px Arial";
+    ctx.fillStyle = "#666";
+    ctx.fillText("Score: "+score,(canvas.width-65)/2,20);
+}
+</pre>
+
+<p>Execute drawScore(); in draw. We can play the game and get the points, but in the best case scenario we'll be playing it indefinitely, if we'll bounce the ball with the paddle. It would be great to be able to actually finish the game when all the blocks are destroyed.</p>
+
+<pre>alert("GAME OVER");</pre>
+
+<p>Thanks to this we'll be able to actually win the game, which is quite important when it comes to games.</p>
+
+<!-- <p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/CODE/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p> -->
+
 <p>Exercise: ?</p>
 
 <h2 id="finish">Finishing up</h2>
-<p>[different angle for when the ball hit the paddle, requestAnimationFrame, lives]</p>
+
+<p>The game itself may be considered as finished, but there's always some room for improvements. We can for example change the angle of the ball bouncing from the paddle, so the game won't be the same all the time.</p>
+
+<pre>dx = 10*((x-(paddleX+paddleWidth/2))/paddleWidth);</pre>
+
+<p>Another thing we can add is the ability to have more than one life. We could make a mistake and still be able to finish the game. Implementing the lives of quite straightforward:</p>
+
+<pre>
+var lives = 3;
+</pre>
+
+<pre>
+function drawLives() {
+    ctx.font="16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Lives: "+lives,canvas.width-65,20);
+}
+</pre>
+
+<p>Execute drawLives(); in draw. Now something not about the game mechanic itself, but the way it is rendered. The requestAnimationFrame helps the browser render the game better than with the fixed framerate.</p>
+
+<!-- <p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/CODE/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p> -->
+
 <p>Exercise: ?</p>
+
+<h2>Summary</h2>
+
+<p>Summarizing the whole experience - if you know the basics, now you can learn some gamedev with framework like the one about the Cyber Orb game with Phaser.</p>
 
 </body>
 </html>

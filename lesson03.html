@@ -17,13 +17,17 @@
     var dx = 2;
     var dy = -2;
 
-    function draw() {
+    function drawBall() {
         ctx.clearRect(0,0,480,320);
         ctx.beginPath();
         ctx.arc(x, y, 10, 0, Math.PI*2, true);
         ctx.fillStyle = "#009900";
         ctx.fill();
         ctx.closePath();
+    }
+
+    function draw() {
+        drawBall();
 
         if(x + dx > canvas.width-10 || x + dx < 10) {
             dx = -dx;
