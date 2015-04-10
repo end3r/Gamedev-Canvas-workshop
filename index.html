@@ -2,38 +2,42 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>MDN Breakout Canvas gamedev workshop</title>
+    <title>MDN Breakout - build simple HTML5 game with JavaScript</title>
     <style>body { width: 650px; margin: 0 auto; }</style>
 </head>
 <body>
 
-<h1>MDN Breakout Canvas gamedev workshop</h1>
-<p>Step-by-step tutorial on creating a simple MDN Breakout game from scratch on Canvas, with live samples available for every step.</p>
+<h1>MDN Breakout - build simple HTML5 game with JavaScript</h1>
+<p>In this step-by-step tutorial we will create a simple <strong>MDN Breakout</strong> game that will be written entirely in JavaScript and rendered on Canvas. Every single step will have editable, live samples to play with at its end. You will learn the basic techniques of using the Canvas element and the game mechanics like rendering and moving the images on screen, collision detection, controls, winning and losing. After the tutorial you will be able to build your own simple Web games.</p>
 
-<ul>
-	<li>Online game: <a href="breakout.enclavegames.com/lesson10.html">http://breakout.enclavegames.com/lesson10.html</a></li>
-	<li>GitHub repo: <a href="https://github.com/end3r/Canvas-gamedev-workshop">github.com/end3r/Gamedev-Canvas-workshop</a></li>
-	<li>MDN article: <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch</a></li>
-</ul>
+<p><img src="img/mdn-breakout-gameplay.png" alt="MDN Breakout gameplay" /></p>
+
+<p>All the lessons and at the same time versions of the <a href="http://breakout.enclavegames.com/lesson10.html">MDN Breakout game</a> we will be building together are <a href="https://github.com/end3r/Canvas-gamedev-workshop">available on GitHub</a>. This series of articles can be used as a good material for the hands-on game development workshops. You can also use the <a href="https://github.com/end3r/Gamedev-Canvas-Content-Kit">Gamedev Canvas Content Kit</a> based on this tutorial if you want to give a talk about game development in general.</p>
 
 <ol>
-	<li><a href="canvas">#</a> Create the Canvas and draw on it [<a href="http://jsfiddle.net/end3r/tzr3kbth/">jsFiddle #1</a>]</li>
-	<li><a href="ball">#</a> Move the ball [<a href="http://jsfiddle.net/end3r/mvLqo56r/">jsFiddle #2</a>]</li>
-	<li><a href="bounce">#</a> Bounce off the walls [<a href="http://jsfiddle.net/end3r/bdaw3yr8/">jsFiddle #3</a>]</li>
-	<li><a href="bricks">#</a> Build the brick field [<a href="http://jsfiddle.net/end3r/8d8pL6qg/">jsFiddle #4</a>]</li>
-	<li><a href="collision">#</a> Collision detection [<a href="http://jsfiddle.net/end3r/reL7e4rk/">jsFiddle #5</a>]</li>
-	<li><a href="gameover">#</a> Game over [<a href="">jsFiddle</a>]</li>
-	<li><a href="keyboard">#</a> Paddle and keyboard controls [<a href="">jsFiddle</a>]</li>
-	<li><a href="mouse">#</a> Mouse controls [<a href="">jsFiddle</a>]</li>
-	<li><a href="score">#</a> Track the score and win [<a href="">jsFiddle</a>]</li>
-	<li><a href="finish">#</a> Finishing up [<a href="">jsFiddle</a>]</li>
+	<li><a href="#canvas">Create the Canvas and draw on it</a></li>
+	<li><a href="#ball">Move the ball</a></li>
+	<li><a href="#bounce">Bounce off the walls</a></li>
+	<li><a href="#bricks">Build the brick field</a></li>
+	<li><a href="#collision">Collision detection</a></li>
+	<li><a href="#gameover">Game over</a></li>
+	<li><a href="#keyboard">Paddle and keyboard controls</a></li>
+	<li><a href="#mouse">Mouse controls</a></li>
+	<li><a href="#score">Track the score and win</a></li>
+	<li><a href="#finish">Finishing up</a></li>
 </ol>
 
-<h2 id="canvas">Create the Canvas and draw on it</h2>
+<p>If you want to learn game development and don't know JavaScript yet, this introductory tutorial is the best way to do so - start with the Canvas and learn pure JavaScript. After that, knowing the basics you can pick any framework you like and use it for your projects. Frameworks are just the tools that are built on top of the language, so even if you plan on working with them it's good to learn about the language itself first to know what exactly is going on under the hood. Frameworks speed up development time and help take care of boring parts of the game, but if something is not working as expected you can always try to debug that or just write your own solutions in pure JavaScript, that's why it's so important to learn it first.</p>
 
-<p>Introduction to gamedev from scratch - if you want to learn the game development and don't know JavaScript yet, you should do the Canvas first as the frameworks are just the tools. Learn language first, then learn about the tools that are built with that language. The framework will speed up development and will take care of lots of boring stuff, but you have to know what's going under the hood first to be able to fix it when something is gonna go wrong.</p>
+<p>Ok, let's get started - head to the first chapter called <a href="#canvas">create the Canvas and draw on it</a>.</p>
 
-<p>The basic HTML structure (link to HTML learning area), Canvas element.</p>
+<p>----------</p>
+
+<h2 id="canvas">1. Create the Canvas and draw on it</h2>
+
+<p>INFO: This is the <strong>1st step</strong> out of 10 of the <a href="">Gamedev Canvas tutorial</a>.</p>
+
+<p>I hope you know the basic HTML tags and understanding the structure below won't be a problem. Please visit the MDN Learning Area if you need assistance with that. The HTML document structure is quite simple as the game will be rendered entirely on the Canvas element:</p>
 
 <pre>
 &lt;!DOCTYPE html&gt;
@@ -58,87 +62,315 @@
 &lt;/html&gt;
 </pre>
 
-<p>Script tags contain JavaScript code. Let's get the handle for Canvas to play with it. Context 2D will give us ability to paint.</p>
+<p>As with the usual web page we have the charset, title and some basic CSS in the header. The body contains the <code>&lt;canvas&gt;</code> and the <code>&lt;script&gt;</code> tags - we will render the game on the first one and will write the JavaScript code in the second one. The Canvas element have the id <code>myCanvas</code>, is 480 pixels wide and 320 pixels high. All the JavaScript code we will write in this tutorial will go between the opening <code>&lt;script&gt;</code> and the closing <code>&lt;/script&gt;</code> tags.</p>
 
-<pre>
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
+<p>To actually be able to render on the Canvas element we have to have a handle for it in JavaScript:</p>
 
-ctx.beginPath();
+<pre>var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");</pre>
+
+<p>We're assigning an element with the <code>myCanvas</code> id to the <code>canvas</code> JavaScript variable for future reference. Then we're creating the <code>ctx</code> variable for the 2D context - the actual tool we can use to paint on the Canvas.</p>
+
+<p>Let's see an example piece of code that will print the red square on the Canvas:</p>
+
+<pre>ctx.beginPath();
 ctx.rect(20, 40, 50, 50);
 ctx.fillStyle = "#FF0000";
 ctx.fill();
-ctx.closePath();
+ctx.closePath();</pre>
 
-ctx.beginPath();
+<p>All the instructions are between the <code>beginPath()</code> and <code>closePath()</code> methods. We are defining a rectangle - first two values are for the left top position on the screen while the second two are for the width and height of the rectangle. In our case the rectangle is painted 20 pixels from the left side of the screen, 40 pixels from the top side, is 50 pixels wide and 50 pixels high, which makes it a perfect square. The <code>fillStyle</code> variable is holding a color which will be used by the <code>fill()</code> method to paint the square in the given color - in our case, red.</p>
+
+<p>We're not limited to rectangles - here's a piece of code for printing out a green square:</p>
+
+<pre>ctx.beginPath();
 ctx.arc(240, 160, 20, 0, Math.PI*2, true);
 ctx.fillStyle = "green";
 ctx.fill();
-ctx.closePath();
+ctx.closePath();</pre>
 
-ctx.beginPath();
+As you can see we're using the <code>beginPath()</code> and <code>closePath()</code> methods again. Between them, the most important part of the code above is the <code>arc()</code> method. It takes six parameters: left position, top position, radius, start angle, end angle and direction. The first value is the position from the left side of the screen, second is from the top, radius is the length of the straight line drawn from the center of the circle, the start angle and the end angle are in this case 0 and 360 degrees respectively (to make a full circle), and the direction is either clockwise (false, default value) or anticlockwise (true). The last parameter is optional.</p>
+
+<p>The <code>fillStyle</code> variable in this case looks different than in the previous one - it's because there are many ways to do it. It's the same as with CSS - it can be a hexadecimal value, a string or the rgba function.</p>
+
+<p>Instead of using <code>fill()</code> and filling the shapes with colors, we can use <code>stroke()</code> to stroke their shapes:</p>
+
+<pre>ctx.beginPath();
 ctx.rect(160, 10, 100, 40);
 ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
 ctx.stroke();
-ctx.closePath();
-</pre>
+ctx.closePath();</pre>
 
-<p>Describe the code that paints something on the screen, everything like: beginPath, rect/arc, fillStyle/fill, closePath.</p>
+<p>The code above will print out a blue-colored line around an empty rectangle. Thanks to the alpha channel in the <code>rgba()</code> way of defining colors, the blue color is semi transparent.</p>
 
-<p>Here's the first step:</p>
+<p>Here's the live, full source code of the first step explained above:</p>
 
-<p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/tzr3kbth/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
+<p><iframe width="100%" height="370" src="https://jsfiddle.net/end3r/tzr3kbth/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
 
-<p>Exercise: try changing the size and color of given shapes.</p>
+<p>EXERCISE: try changing the size and color of the given shapes.</p>
 
-<h2 id="ball">Move the ball</h2>
+<p>Now, you can get back to the <a href="">index page</a> or go to the second chapter: <a href="#ball">move the ball</a>.</p>
 
-<p>Let's make the ball move on the screen. We'll set up the variables for start position and the movement [force]. We'll create a draw function that will paint on the screen every 10 miliseconds with the use of the setInterval function.</p>
+<p>----------</p>
 
-<pre>
-var x = canvas.width/2;
+<h2 id="ball">2. Move the ball</h2>
+
+<p>INFO: This is the <strong>2nd step</strong> out of 10 of the <a href="">Gamedev Canvas tutorial</a>.</p>
+
+<p>You already know how to draw the ball, so let's make it move. Technically, we will be painting the ball on the screen, clearing it and then painting it again in a slightly different position every frame to make the impression of movement - just like it works with the movies.</p>
+
+<p>To do it we will define a <code>draw()</code> function that will be executed within <code>setInterval</code> every 10 miliseconds:</p>
+
+<pre>function draw() {
+    // drawing code
+}
+setInterval(draw, 10);</pre>
+
+<p>Thanks to the inifinite nature of <code>setInterval</code> the <code>draw()</code> function will be called every 10 miliseconds forever, or until we stop it. Now, let's draw the ball:</p>
+
+<pre>function draw() {
+    ctx.beginPath();
+    ctx.arc(50, 50, 10, 0, Math.PI*2);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+setInterval(draw, 10);</pre>
+
+<p>It works! The ball is repainted on every frame, but it's not moving - let's change that. First, instead of a hardcoded position at 50 pixels left and 50 pixels top we will define a starting point at the bottom center part of the Canvas, and make the position on the sceen in <code>x</code> and <code>y</code> a variables:</p>
+
+<pre>var x = canvas.width/2;
+var y = canvas.height-30;
+
+function draw() {
+    ctx.beginPath();
+    ctx.arc(x, y, 10, 0, Math.PI*2);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+setInterval(draw, 10);</pre>
+
+<p>Now the important part: adding some small values to the <code>x</code> and <code>y</code> position on every frame to make it appear as movement. Let's define them as <code>dx</code> and <code>dy</code> and set their values to 2 and -2 respectively:</p>
+
+<pre>var x = canvas.width/2;
 var y = canvas.height-30;
 var dx = 2;
 var dy = -2;
 
 function draw() {
-    ctx.clearRect(0,0,480,320);
     ctx.beginPath();
-    ctx.arc(x, y, 10, 0, Math.PI*2, true);
-    ctx.fillStyle = "#009900";
+    ctx.arc(x, y, 10, 0, Math.PI*2);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+setInterval(draw, 10);</pre>
+
+<p>The last thing to do is to update the <code>x</code> and <code>y</code> with our <code>dx</code> and <code>dy</code> on every frame, so the ball will be painted in the new position on every update:</p>
+
+<pre>var x = canvas.width/2;
+var y = canvas.height-30;
+var dx = 2;
+var dy = -2;
+
+function draw() {
+    ctx.beginPath();
+    ctx.arc(x, y, 10, 0, Math.PI*2);
+    ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
     x += dx;
     y += dy;
 }
+setInterval(draw, 10);</pre>
 
-setInterval(draw, 10);
-</pre>
+<p>Looks like everything is there and should be working fine. When we execute the code though it appears as the ball is leaving a trail behind it:</p>
 
-<p>Inside the draw there's the similar code like before for painting the circle. On every [frame] we're clearing the whole Canvas and paint everything again and again. At the end of that code we're adding diff to the x and y positions to make the ball appear like moving.</p>
+<p>[IMG of the blue ball leaving a trail]</p>
 
-<p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/mvLqo56r/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
+<p>It's because we're painting a new circle on every frame without removing the previous one. Don't worry - there's a method for that: <code>clearRect()</code>. It will take four parameters: left starting point, top starting point, left ending point and top ending point. The whole area covered by the <code>clearRect()</code> will be cleared of the things we painted there:</p>
+
+<pre>var x = canvas.width/2;
+var y = canvas.height-30;
+var dx = 2;
+var dy = -2;
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.arc(x, y, 10, 0, Math.PI*2);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+    x += dx;
+    y += dy;
+}
+setInterval(draw, 10);</pre>
+
+We're doing that on every frame, so once every 10 miliseconds the screen will be cleared, the blue circle (our ball) will be drawn on a given position and the <code>x</code> and <code>y</code> values will be updated for the next frame. That's it - now it works as expected! You can check it for yourself in the live demo below, and play with it a bit to see how it works:</p>
+
+<p><iframe width="100%" height="355" src="https://jsfiddle.net/end3r/mvLqo56r/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
 
 <p>Exercise: try changing the speed or the direction of the moving ball.</p>
 
-<h2 id="bounce">Bounce off the walls</h2>
+<p>Now, you can get back to the <a href="">index page</a> or go to the third chapter: <a href="">~~~</a>.</p>
 
-<p>Move ball to the bottom to play with it. Then check the walls - if the ball is touching the wall, change the direction of movement of the ball.</p>
+<p>----------</p>
 
-<pre>
-if(x + dx &gt; canvas.width-10 || x + dx &lt; 10) {
+<h2 id="bounce">3. Bounce off the walls</h2>
+
+<p>It's cool to see the ball moving, but it quickly disappears from the screen. To overcome that we can try and implement the simplest possible concept of collision detection (which will be explained <a href="">later</a> in more detail) and make the ball bounce off the four corners of the Canvas. To do that we will check whether the ball is touching (colliding with) the wall, and if yes - we will change its direction of the movement accordingly.</p>
+
+<p>To have the calculations easier let's define a variable called <code>ballRadius</code> that will hold the radius of the drawn circle and will be used for calculations:</p>
+
+<pre>var ballRadius = 10;</pre>
+
+<p>So when we draw the ball, it will look like this:</p>
+
+<pre>ctx.arc(x, y, ballRadius, 0, Math.PI*2);</pre>
+
+<p>There will be four walls to bounce the ball from - let's focus on the top one first. We need to check, on every frame, whether the ball is already touching the top edge of the Canvas and if yes, then reverse the ball movement, so it will move in the opposite direction and will stay within the visible boundaries. Remembering that the coordinate system starts from the top left, we can come up with something like this:</p>
+
+<pre>if(y + dy &lt; 0) {
+    dy = -dy;
+}</pre>
+
+<p>If the <code>y</code> value of the ball position is lower than zero - change the direction of the movement on the <code>y</code> axis by giving it a reversed value of itself. If the ball was moving up on the <code>y</code> axis with the speed of 2 pixels per frame, now it will be moving "up" with the speed of -2 pixels, which gives us the movement in the "down" direction by 2 pixels.</p>
+
+<p>The ball bounces off the top edge, so let's think about the bottom one:</p>
+
+<pre>if(y + dy &gt; canvas.height) {
+    dy = -dy;
+}</pre>
+
+<p>If the ball's <code>y</code> position is greater than the height if the Canvas (remember that we count the <code>y</code> values from the top left, so the top edge starts with 0 and the bottom edge is 480 pixels, the Canvas' height), then bounce it off the bottom edge and reverse the <code>y</code> axis movement again. Let's merge those two statements into one:</p>
+
+<pre>if(y + dy &gt; canvas.height || y + dy &lt; 0) {
+    dy = -dy;
+}</pre>
+
+<p>If either of the two statements is <code>true</code>, reverse the movement. We have the top and bottom edge covered, so let's think about the left and right ones. It is very similar actually, all you have to do is to repeat the statements for <code>x</code> instead of <code>y</code>:</p>
+
+<pre>if(x + dx &gt; canvas.width || x + dx &lt; 0) {
     dx = -dx;
 }
-if(y + dy &gt; canvas.height-10 || y + dy &lt; 10) {
+if(y + dy &gt; canvas.height || y + dy &lt; 0) {
     dy = -dy;
+}</pre>
+
+<p>Now we have all the four directions covered, but when we test the code there is a glitch: the ball smashes into the wall before changing the direction:</p>
+
+<p>IMG if the ball smashed halfway into the wall</p>
+
+<p>It's because we're calculating the collision point of the wall and the center of the ball while we should do it for its circumference. The ball should bounce right after if touches the wall, not when it's already halfway in the wall, so let's adjust our statements a bit to include that:</p>
+
+<pre>if(x + dx &gt; canvas.width-ballRadius || x + dx &lt; ballRadius) {
+    dx = -dx;
 }
-</pre>
+if(y + dy &gt; canvas.height-ballRadius || y + dy &lt; ballRadius) {
+    dy = -dy;
+}</pre>
+
+<p>When the distance between the center of the ball and the edge of the wall is exactly the same as the radius of the ball, it will change the movement direction. Subtracting the radius from one edge's width and adding it on the other gives us the impression of the proper collision detection - the ball bounces off the walls as it should be.</p>
 
 <p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/bdaw3yr8/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
 
 <p>Exercise: try changing the color of the ball when it hits the wall.</p>
 
-<h2 id="bricks">Build the brick field</h2>
+<p>Now, you can get back to the <a href="">index page</a> or go to the fourth chapter: <a href="">~~~</a>.</p>
+
+<p>----------</p>
+
+<h2 id="keyboard">4. Paddle and keyboard controls</h2>
+
+<p>The ball is bouncing off the walls freely and you can watch it indefinitely, but there's no interactivity. It's not a game if you cannot control it. So, we need a paddle to hit the ball - let's define a few variables for that:</p>
+
+<pre>var paddleHeight = 10;
+var paddleWidth = 75;
+var paddleX = (canvas.width-paddleWidth)/2;</pre>
+
+<p>We will need the height and width of the paddle, and its starting point on the <code>x</code> axis for calculations. Let's create a function that will draw the paddle on the screen:</p>
+
+<pre>function drawPaddle() {
+    ctx.beginPath();
+    ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}</pre>
+
+<p>We can draw it wherever we want, but it should respond to the user's actions - time to implement the keyboard controls. We will need:</p>
+
+<ul>
+    <li>two variables for storing the information whether the left or right button is pressed</li>
+    <li>two event listeners for <code>keydown</code> and <code>keyup</code> events</li>
+    <li>two functions handling the <code>keydown</code> and <code>keyup</code> events</li>
+    <li>ability to move the paddle left and right</li>
+</ul>
+
+<p>Pressed buttons can be defined and initialized with the boolean variables:</p>
+
+<pre>var rightPressed = false;
+var leftPressed = false;</pre>
+
+<p>The default value for both is <code>false</code> - at the beginning they are not pressed. To listen for key presses we will set up two event listeners:</p>
+
+<pre>document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);</pre>
+
+<p>When the <code>keydown</code> event will be fired on any of the keyboard keys, the <code>keyDownHandler</code> function will be executed. The same goes with the second one: <code>keyup</code> event will fire <code>keyUpHandler</code> function. Let's see how they look like:</p>
+
+<pre>function keyDownHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = true;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = true;
+    }
+}
+function keyUpHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = false;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = false;
+    }
+}</pre>
+
+<p>When we press the key and hold it, we will store the information about it in a variable, so it will be set to <code>true</code>. When the key will be released, the corresponding variable will be set to <code>false</code>.</p>
+
+<p>Both functions takes an event as a parameter represented by the <code>e</code> variable. From that you can get useful information - the <code>keyCode</code> holds the information about the key that was pressed. For example key code 37 is the left arrow and 39 is the right arrow. If the left arrow is pressed, then the <code>leftPressed</code> variable is set to <code>true</code>, and when it is released the <code>leftPressed</code> is set to <code>false</code>. The same goes with the right arrow and the <code>rightPressed</code> variable.</p>
+
+<p>We have the variables for storing the info about the pressed keys, event listeners and the functions - now onto the actual code to use all that and move the paddle on the screen. Inside the <code>draw()</code> function we will check if the left or right arrow keys are pressed:</p>
+
+<pre>if(rightPressed) {
+    paddleX += 5;
+}
+else if(leftPressed) {
+    paddleX -= 5;
+}</pre>
+
+<p>If the left one is pressed, the paddle will move 5 pixels to the left, and if the right one is pressed, the paddle will move 5 pixels to the right. Works as expected, but the paddle disappears over the edge of the screen if we hold the key for too long. We could improve that and move the paddle only within the boundaries of the Canvas:</p>
+
+<pre>if(rightPressed &amp;&amp; paddleX &lt; canvas.width-paddleWidth) {
+    paddleX += 5;
+}
+else if(leftPressed &amp;&amp; paddleX &gt; 0) {
+    paddleX -= 5;
+}</pre>
+
+<p>The <code>paddleX</code> position we're using will move between <code>0</code> on the left side of the Canvas and <code>canvas.width-paddleWidth</code> on the right side, which will work exactly as we want it.</p>
+
+<p>Exercise: make the paddle move faster or slower, or change its size.</p>
+
+<p>Now, you can get back to the <a href="">index page</a> or go to the fifth chapter: <a href="">~~~</a>.</p>
+
+<p>----------</p>
+<p>----------</p>
+<p>----------</p>
+
+<h2 id="bricks">5. Build the brick field</h2>
 
 <p>A bunch of variables for bricks, loop through and create two-dimentional array and assign x, y and status (that will be used for whether the brick should be painted or not).</p>
 
@@ -193,6 +425,10 @@ drawBricks();
 
 <p>Exercise: try changing the number of bricks in a row or a column and their positions.</p>
 
+<p>Now, you can get back to the <a href="">index page</a> or go to the second chapter: <a href="">bounce off the walls</a>.</p>
+
+<p>----------</p>
+
 <h2 id="collision">Collision detection</h2>
 
 <p>So we have the running ball and have drew the whole brick field, but the ball is going "through" them. The obvious next step is to have the collision detection, so the ball can bounce off of the given brick removing it from the scene.</p>
@@ -244,72 +480,6 @@ else if(y + dy > canvas.height-10) {
 </pre>
 
 <p>Now the ball bounces off of the three walls, but when it reaches the floor the game is lost.</p>
-
-<!-- <p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/CODE/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p> -->
-
-<p>Exercise: ?</p>
-
-<h2 id="keyboard">Paddle and keyboard controls</h2>
-
-<p>It's unfair to not have the ability to defend yourself from the ball reaching the [floor]. To fight back we can create a paddle that will deflect the ball and give us the chance to survive.</p>
-
-<pre>
-var paddleHeight = 10;
-var paddleWidth = 75;
-var paddleX = (canvas.width-paddleWidth)/2;
-</pre>
-
-<pre>
-function drawPaddle() {
-    ctx.beginPath();
-    ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
-    ctx.fillStyle = "#660099";
-    ctx.fill();
-    ctx.closePath();
-}
-</pre>
-
-<p>Creating a paddle is a simple rectangle. But the ball is falling down in other place than our paddle. We need to be able to control it - let's use the keyboard controls for that.</p>
-
-<pre>
-var rightPressed = false;
-var leftPressed = false;
-</pre>
-
-<pre>
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
-</pre>
-
-<pre>
-function keyDownHandler(e) {
-    if(e.keyCode == 39) {
-        rightPressed = true;
-    }
-    else if(e.keyCode == 37) {
-        leftPressed = true;
-    }
-}
-function keyUpHandler(e) {
-    if(e.keyCode == 39) {
-        rightPressed = false;
-    }
-    else if(e.keyCode == 37) {
-        leftPressed = false;
-    }
-}
-</pre>
-
-<pre>
-if(rightPressed &amp;&amp; paddleX &lt; canvas.width-paddleWidth) {
-    paddleX += 5;
-}
-else if(leftPressed &amp;&amp; paddleX &gt; 0) {
-    paddleX -= 5;
-}
-</pre>
-
-<p>If one of the two keys is pressed, then we'll update the paddle position and then draw it there. Thanks to this the survival is entirely in our hands.</p>
 
 <!-- <p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/CODE/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p> -->
 
