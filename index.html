@@ -15,36 +15,36 @@
 <p>All the lessons and at the same time versions of the <a href="http://breakout.enclavegames.com/lesson10.html">MDN Breakout game</a> we will be building together are <a href="https://github.com/end3r/Canvas-gamedev-workshop">available on GitHub</a>. This series of articles can be used as a good material for the hands-on game development workshops. You can also use the <a href="https://github.com/end3r/Gamedev-Canvas-Content-Kit">Gamedev Canvas Content Kit</a> based on this tutorial if you want to give a talk about game development in general.</p>
 
 <ol>
-	<li><a href="#canvas">Create the Canvas and draw on it</a></li>
-	<li><a href="#ball">Move the ball</a></li>
-	<li><a href="#bounce">Bounce off the walls</a></li>
-	<li><a href="#bricks">Build the brick field</a></li>
-	<li><a href="#collision">Collision detection</a></li>
-	<li><a href="#gameover">Game over</a></li>
-	<li><a href="#keyboard">Paddle and keyboard controls</a></li>
-	<li><a href="#mouse">Mouse controls</a></li>
-	<li><a href="#score">Track the score and win</a></li>
-	<li><a href="#finish">Finishing up</a></li>
+	<li><a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Create_the_Canvas_and_draw_on_it">Create the Canvas and draw on it</a></li>
+	<li><a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Move_the_ball">Move the ball</a></li>
+	<li><a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Bounce_off_the_walls">Bounce off the walls</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Paddle_and_keyboard_controls">Paddle and keyboard controls</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Game_over">Game over</a></li>
+	<li><a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Build_the_brick_field">Build the brick field</a></li>
+	<li><a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Collision_detection">Collision detection</a></li>
+	<li><a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Track_the_score_and_win">Track the score and win</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Mouse_controls">Mouse controls</a></li>
+	<li><a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Finishing_up">Finishing up</a></li>
 </ol>
 
 <p>If you want to learn game development and don't know JavaScript yet, this introductory tutorial is the best way to do so - start with the Canvas and learn pure JavaScript. After that, knowing the basics you can pick any framework you like and use it for your projects. Frameworks are just the tools that are built on top of the language, so even if you plan on working with them it's good to learn about the language itself first to know what exactly is going on under the hood. Frameworks speed up development time and help take care of boring parts of the game, but if something is not working as expected you can always try to debug that or just write your own solutions in pure JavaScript, that's why it's so important to learn it first.</p>
 
-<p>Ok, let's get started - head to the first chapter called <a href="#canvas">create the Canvas and draw on it</a>.</p>
+<p>Ok, let's get started - head to the first chapter called <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Create_the_Canvas_and_draw_on_it">Create the Canvas and draw on it</a>.</p>
 
 <p>----------</p>
 
 <h2 id="canvas">1. Create the Canvas and draw on it</h2>
 
-<p>INFO: This is the <strong>1st step</strong> out of 10 of the <a href="">Gamedev Canvas tutorial</a>.</p>
+<div class="summary"><p>This is the <strong>1st step</strong> out of 10 of the <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">Gamedev Canvas tutorial</a>.</p></div>
 
-<p>I hope you know the basic HTML tags and understanding the structure below won't be a problem. Please visit the MDN Learning Area if you need assistance with that. The HTML document structure is quite simple as the game will be rendered entirely on the Canvas element:</p>
+<p>I hope you know the basic HTML tags and understanding the structure below won't be a problem. Please visit the <a href="https://developer.mozilla.org/en-US/Learn">MDN Learning Area</a> if you need assistance with that. The HTML document structure is quite simple as the game will be rendered entirely on the Canvas element:</p>
 
-<pre>
+<pre class="brush: html">
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
     &lt;meta charset="utf-8" /&gt;
-    &lt;title&gt;MDN Breakout&lt;/title&gt;
+    &lt;title&gt;Gamedev Canvas Workshop&lt;/title&gt;
     &lt;style&gt;
     	* { padding: 0; margin: 0; }
     	canvas { background: #eee; display: block; margin: 0 auto; }
@@ -66,14 +66,14 @@
 
 <p>To actually be able to render on the Canvas element we have to have a handle for it in JavaScript:</p>
 
-<pre>var canvas = document.getElementById("myCanvas");
+<pre class="brush: js">var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");</pre>
 
 <p>We're assigning an element with the <code>myCanvas</code> id to the <code>canvas</code> JavaScript variable for future reference. Then we're creating the <code>ctx</code> variable for the 2D context - the actual tool we can use to paint on the Canvas.</p>
 
 <p>Let's see an example piece of code that will print the red square on the Canvas:</p>
 
-<pre>ctx.beginPath();
+<pre class="brush: js">ctx.beginPath();
 ctx.rect(20, 40, 50, 50);
 ctx.fillStyle = "#FF0000";
 ctx.fill();
@@ -83,8 +83,8 @@ ctx.closePath();</pre>
 
 <p>We're not limited to rectangles - here's a piece of code for printing out a green square:</p>
 
-<pre>ctx.beginPath();
-ctx.arc(240, 160, 20, 0, Math.PI*2, true);
+<pre class="brush: js">ctx.beginPath();
+ctx.arc(240, 160, 20, 0, Math.PI*2, false);
 ctx.fillStyle = "green";
 ctx.fill();
 ctx.closePath();</pre>
@@ -95,7 +95,7 @@ As you can see we're using the <code>beginPath()</code> and <code>closePath()</c
 
 <p>Instead of using <code>fill()</code> and filling the shapes with colors, we can use <code>stroke()</code> to stroke their shapes:</p>
 
-<pre>ctx.beginPath();
+<pre class="brush: js">ctx.beginPath();
 ctx.rect(160, 10, 100, 40);
 ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
 ctx.stroke();
@@ -105,30 +105,30 @@ ctx.closePath();</pre>
 
 <p>Here's the live, full source code of the first step explained above:</p>
 
-<p><iframe width="100%" height="370" src="https://jsfiddle.net/end3r/tzr3kbth/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
+<p><iframe width="100%" height="370" src="https://jsfiddle.net/end3r/x62h15e2/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
 
-<p>EXERCISE: try changing the size and color of the given shapes.</p>
+<div class="summary"><p>Exercise: try changing the size and color of the given shapes.</p></div>
 
-<p>Now, you can get back to the <a href="">index page</a> or go to the second chapter: <a href="#ball">move the ball</a>.</p>
+<p>Now, you can get back to <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">this tutorial's index page</a> or continue to the second chapter: <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Move_the_ball">Move the ball</a>.</p>
 
 <p>----------</p>
 
 <h2 id="ball">2. Move the ball</h2>
 
-<p>INFO: This is the <strong>2nd step</strong> out of 10 of the <a href="">Gamedev Canvas tutorial</a>.</p>
+<div class="summary"><p>This is the <strong>2nd step</strong> out of 10 of the <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">Gamedev Canvas tutorial</a>.</p></div>
 
 <p>You already know how to draw the ball, so let's make it move. Technically, we will be painting the ball on the screen, clearing it and then painting it again in a slightly different position every frame to make the impression of movement - just like it works with the movies.</p>
 
 <p>To do it we will define a <code>draw()</code> function that will be executed within <code>setInterval</code> every 10 miliseconds:</p>
 
-<pre>function draw() {
+<pre class="brush: js">function draw() {
     // drawing code
 }
 setInterval(draw, 10);</pre>
 
 <p>Thanks to the inifinite nature of <code>setInterval</code> the <code>draw()</code> function will be called every 10 miliseconds forever, or until we stop it. Now, let's draw the ball:</p>
 
-<pre>function draw() {
+<pre class="brush: js">function draw() {
     ctx.beginPath();
     ctx.arc(50, 50, 10, 0, Math.PI*2);
     ctx.fillStyle = "#0095DD";
@@ -139,7 +139,7 @@ setInterval(draw, 10);</pre>
 
 <p>It works! The ball is repainted on every frame, but it's not moving - let's change that. First, instead of a hardcoded position at 50 pixels left and 50 pixels top we will define a starting point at the bottom center part of the Canvas, and make the position on the sceen in <code>x</code> and <code>y</code> a variables:</p>
 
-<pre>var x = canvas.width/2;
+<pre class="brush: js">var x = canvas.width/2;
 var y = canvas.height-30;
 
 function draw() {
@@ -153,7 +153,7 @@ setInterval(draw, 10);</pre>
 
 <p>Now the important part: adding some small values to the <code>x</code> and <code>y</code> position on every frame to make it appear as movement. Let's define them as <code>dx</code> and <code>dy</code> and set their values to 2 and -2 respectively:</p>
 
-<pre>var x = canvas.width/2;
+<pre class="brush: js">var x = canvas.width/2;
 var y = canvas.height-30;
 var dx = 2;
 var dy = -2;
@@ -169,7 +169,7 @@ setInterval(draw, 10);</pre>
 
 <p>The last thing to do is to update the <code>x</code> and <code>y</code> with our <code>dx</code> and <code>dy</code> on every frame, so the ball will be painted in the new position on every update:</p>
 
-<pre>var x = canvas.width/2;
+<pre class="brush: js">var x = canvas.width/2;
 var y = canvas.height-30;
 var dx = 2;
 var dy = -2;
@@ -191,7 +191,7 @@ setInterval(draw, 10);</pre>
 
 <p>It's because we're painting a new circle on every frame without removing the previous one. Don't worry - there's a method for that: <code>clearRect()</code>. It will take four parameters: left starting point, top starting point, left ending point and top ending point. The whole area covered by the <code>clearRect()</code> will be cleared of the things we painted there:</p>
 
-<pre>var x = canvas.width/2;
+<pre class="brush: js">var x = canvas.width/2;
 var y = canvas.height-30;
 var dx = 2;
 var dy = -2;
@@ -208,31 +208,55 @@ function draw() {
 }
 setInterval(draw, 10);</pre>
 
-We're doing that on every frame, so once every 10 miliseconds the screen will be cleared, the blue circle (our ball) will be drawn on a given position and the <code>x</code> and <code>y</code> values will be updated for the next frame. That's it - now it works as expected! You can check it for yourself in the live demo below, and play with it a bit to see how it works:</p>
+We're doing that on every frame, so once every 10 miliseconds the screen will be cleared, the blue circle (our ball) will be drawn on a given position and the <code>x</code> and <code>y</code> values will be updated for the next frame. That's it - now it works as expected!</p>
 
-<p><iframe width="100%" height="355" src="https://jsfiddle.net/end3r/mvLqo56r/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
+We can move the drawing of the ball to the separate function:</p>
 
-<p>Exercise: try changing the speed or the direction of the moving ball.</p>
+<pre class="brush: js">function drawBall() {
+    ctx.beginPath();
+    ctx.arc(x, y, 10, 0, Math.PI*2);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}</pre>
 
-<p>Now, you can get back to the <a href="">index page</a> or go to the third chapter: <a href="">~~~</a>.</p>
+<p>We will be adding more and more things to the draw function, so it's good to keep it simple and clean:</p>
+
+<pre class="brush: js">function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBall();
+    x += dx;
+    y += dy;
+}</pre>
+
+
+<p>You can check it for yourself in the live demo below, and play with it a bit to see how it works:</p>
+
+<p><iframe width="100%" height="355" src="https://jsfiddle.net/end3r/mvLqo56r/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>https://jsfiddle.net/end3r/3x5foxb1/
+
+<div class="summary"><p>Exercise: try changing the speed or the direction of the moving ball.</p></div>
+
+<p>Now, you can get back to <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">this tutorial's index page</a> or continue to the third chapter: <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Bounce_off_the_walls">Bounce off the walls</a>.</p>
 
 <p>----------</p>
 
 <h2 id="bounce">3. Bounce off the walls</h2>
 
+<div class="summary"><p>This is the <strong>3rd step</strong> out of 10 of the <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">Gamedev Canvas tutorial</a>.</p></div>
+
 <p>It's cool to see the ball moving, but it quickly disappears from the screen. To overcome that we can try and implement the simplest possible concept of collision detection (which will be explained <a href="">later</a> in more detail) and make the ball bounce off the four corners of the Canvas. To do that we will check whether the ball is touching (colliding with) the wall, and if yes - we will change its direction of the movement accordingly.</p>
 
 <p>To have the calculations easier let's define a variable called <code>ballRadius</code> that will hold the radius of the drawn circle and will be used for calculations:</p>
 
-<pre>var ballRadius = 10;</pre>
+<pre class="brush: js">var ballRadius = 10;</pre>
 
 <p>So when we draw the ball, it will look like this:</p>
 
-<pre>ctx.arc(x, y, ballRadius, 0, Math.PI*2);</pre>
+<pre class="brush: js">ctx.arc(x, y, ballRadius, 0, Math.PI*2);</pre>
 
 <p>There will be four walls to bounce the ball from - let's focus on the top one first. We need to check, on every frame, whether the ball is already touching the top edge of the Canvas and if yes, then reverse the ball movement, so it will move in the opposite direction and will stay within the visible boundaries. Remembering that the coordinate system starts from the top left, we can come up with something like this:</p>
 
-<pre>if(y + dy &lt; 0) {
+<pre class="brush: js">if(y + dy &lt; 0) {
     dy = -dy;
 }</pre>
 
@@ -240,19 +264,19 @@ We're doing that on every frame, so once every 10 miliseconds the screen will be
 
 <p>The ball bounces off the top edge, so let's think about the bottom one:</p>
 
-<pre>if(y + dy &gt; canvas.height) {
+<pre class="brush: js">if(y + dy &gt; canvas.height) {
     dy = -dy;
 }</pre>
 
 <p>If the ball's <code>y</code> position is greater than the height if the Canvas (remember that we count the <code>y</code> values from the top left, so the top edge starts with 0 and the bottom edge is 480 pixels, the Canvas' height), then bounce it off the bottom edge and reverse the <code>y</code> axis movement again. Let's merge those two statements into one:</p>
 
-<pre>if(y + dy &gt; canvas.height || y + dy &lt; 0) {
+<pre class="brush: js">if(y + dy &gt; canvas.height || y + dy &lt; 0) {
     dy = -dy;
 }</pre>
 
 <p>If either of the two statements is <code>true</code>, reverse the movement. We have the top and bottom edge covered, so let's think about the left and right ones. It is very similar actually, all you have to do is to repeat the statements for <code>x</code> instead of <code>y</code>:</p>
 
-<pre>if(x + dx &gt; canvas.width || x + dx &lt; 0) {
+<pre class="brush: js">if(x + dx &gt; canvas.width || x + dx &lt; 0) {
     dx = -dx;
 }
 if(y + dy &gt; canvas.height || y + dy &lt; 0) {
@@ -265,7 +289,7 @@ if(y + dy &gt; canvas.height || y + dy &lt; 0) {
 
 <p>It's because we're calculating the collision point of the wall and the center of the ball while we should do it for its circumference. The ball should bounce right after if touches the wall, not when it's already halfway in the wall, so let's adjust our statements a bit to include that:</p>
 
-<pre>if(x + dx &gt; canvas.width-ballRadius || x + dx &lt; ballRadius) {
+<pre class="brush: js">if(x + dx &gt; canvas.width-ballRadius || x + dx &lt; ballRadius) {
     dx = -dx;
 }
 if(y + dy &gt; canvas.height-ballRadius || y + dy &lt; ballRadius) {
@@ -274,25 +298,27 @@ if(y + dy &gt; canvas.height-ballRadius || y + dy &lt; ballRadius) {
 
 <p>When the distance between the center of the ball and the edge of the wall is exactly the same as the radius of the ball, it will change the movement direction. Subtracting the radius from one edge's width and adding it on the other gives us the impression of the proper collision detection - the ball bounces off the walls as it should be.</p>
 
-<p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/bdaw3yr8/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
+<p><iframe width="100%" height="320" src="https://jsfiddle.net/end3r/redj37dc/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
-<p>Exercise: try changing the color of the ball when it hits the wall.</p>
+<div class="summary"><p>Exercise: try changing the color of the ball when it hits the wall.</p></div>
 
-<p>Now, you can get back to the <a href="">index page</a> or go to the fourth chapter: <a href="">~~~</a>.</p>
+<p>Now, you can get back to <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">this tutorial's index page</a> or continue to the fourth chapter: <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Paddle_and_keyboard_controls">Paddle and keyboard controls</a>.</p>
 
 <p>----------</p>
 
 <h2 id="keyboard">4. Paddle and keyboard controls</h2>
 
+<div class="summary"><p>This is the <strong>4th step</strong> out of 10 of the <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">Gamedev Canvas tutorial</a>.</p></div>
+
 <p>The ball is bouncing off the walls freely and you can watch it indefinitely, but there's no interactivity. It's not a game if you cannot control it. So, we need a paddle to hit the ball - let's define a few variables for that:</p>
 
-<pre>var paddleHeight = 10;
+<pre class="brush: js">var paddleHeight = 10;
 var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;</pre>
 
 <p>We will need the height and width of the paddle, and its starting point on the <code>x</code> axis for calculations. Let's create a function that will draw the paddle on the screen:</p>
 
-<pre>function drawPaddle() {
+<pre class="brush: js">function drawPaddle() {
     ctx.beginPath();
     ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
     ctx.fillStyle = "#0095DD";
@@ -311,17 +337,17 @@ var paddleX = (canvas.width-paddleWidth)/2;</pre>
 
 <p>Pressed buttons can be defined and initialized with the boolean variables:</p>
 
-<pre>var rightPressed = false;
+<pre class="brush: js">var rightPressed = false;
 var leftPressed = false;</pre>
 
 <p>The default value for both is <code>false</code> - at the beginning they are not pressed. To listen for key presses we will set up two event listeners:</p>
 
-<pre>document.addEventListener("keydown", keyDownHandler, false);
+<pre class="brush: js">document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);</pre>
 
 <p>When the <code>keydown</code> event will be fired on any of the keyboard keys, the <code>keyDownHandler</code> function will be executed. The same goes with the second one: <code>keyup</code> event will fire <code>keyUpHandler</code> function. Let's see how they look like:</p>
 
-<pre>function keyDownHandler(e) {
+<pre class="brush: js">function keyDownHandler(e) {
     if(e.keyCode == 39) {
         rightPressed = true;
     }
@@ -344,222 +370,469 @@ function keyUpHandler(e) {
 
 <p>We have the variables for storing the info about the pressed keys, event listeners and the functions - now onto the actual code to use all that and move the paddle on the screen. Inside the <code>draw()</code> function we will check if the left or right arrow keys are pressed:</p>
 
-<pre>if(rightPressed) {
-    paddleX += 5;
+<pre class="brush: js">if(rightPressed) {
+    paddleX += 7;
 }
 else if(leftPressed) {
-    paddleX -= 5;
+    paddleX -= 7;
 }</pre>
 
 <p>If the left one is pressed, the paddle will move 5 pixels to the left, and if the right one is pressed, the paddle will move 5 pixels to the right. Works as expected, but the paddle disappears over the edge of the screen if we hold the key for too long. We could improve that and move the paddle only within the boundaries of the Canvas:</p>
 
-<pre>if(rightPressed &amp;&amp; paddleX &lt; canvas.width-paddleWidth) {
-    paddleX += 5;
+<pre class="brush: js">if(rightPressed &amp;&amp; paddleX &lt; canvas.width-paddleWidth) {
+    paddleX += 7;
 }
 else if(leftPressed &amp;&amp; paddleX &gt; 0) {
-    paddleX -= 5;
+    paddleX -= 7;
 }</pre>
 
 <p>The <code>paddleX</code> position we're using will move between <code>0</code> on the left side of the Canvas and <code>canvas.width-paddleWidth</code> on the right side, which will work exactly as we want it.</p>
 
-<p>Exercise: make the paddle move faster or slower, or change its size.</p>
+<p>Adding <code>drawPaddle()</code> in the <code>draw()</code> function will actually print it on the screen:</p>
 
-<p>Now, you can get back to the <a href="">index page</a> or go to the fifth chapter: <a href="">~~~</a>.</p>
+<pre class="brush: js">function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBall();
+    drawPaddle();
+    // ...
+}</pre>
+
+<p>Here's the working code:</p>
+
+<p><iframe width="100%" height="320" src="https://jsfiddle.net/end3r/tgn3zscj/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<div class="summary"><p>Exercise: make the paddle move faster or slower, or change its size.</p></div>
+
+<p>Now, you can get back to <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">this tutorial's index page</a> or continue to the fifth chapter: <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Game_over">Game over</a>.</p>
 
 <p>----------</p>
-<p>----------</p>
-<p>----------</p>
 
-<h2 id="bricks">5. Build the brick field</h2>
+<h2 id="gameover">5. Game over</h2>
 
-<p>A bunch of variables for bricks, loop through and create two-dimentional array and assign x, y and status (that will be used for whether the brick should be painted or not).</p>
+<div class="summary"><p>This is the <strong>5th step</strong> out of 10 of the <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">Gamedev Canvas tutorial</a>.</p></div>
 
-<pre>
-var brickRowCount = 5;
-var brickColumnCount = 3;
-var brickWidth = 75;
-var brickHeight = 20;
-var brickPadding = 10;
-var brickOffsetTop = 30;
-var brickOffsetLeft = 30;
-</pre>
+<p>It's fun to watch the ball bouncing off the walls and be able to move the paddle around, but it does nothing and don't have any influence of the game. It would be good from the gameplay point of view to be able to lose. The logic behind losing in breakout is simple: if you won't be able to hit the ball with the paddle before it reaches the bottom edge of the screen, then it's game over. Let's try to implement that in our game - here's the piece of code from the third lesson where we made the ball bounce off the walls:</p>
 
-<pre>
-var bricks = [];
-for(c=0; c&lt;brickColumnCount; c++) {
-    bricks[c] = [];
-    for(r=0; r&lt;brickRowCount; r++) {
-        bricks[c][r] = { x: 0, y: 0, status: 1 };
-    }
+<pre class="brush: js">if(x + dx &gt; canvas.width-ballRadius || x + dx &lt; ballRadius) {
+    dx = -dx;
 }
-</pre>
+if(y + dy &gt; canvas.height-ballRadius || y + dy &lt; ballRadius) {
+    dy = -dy;
+}</pre>
 
-<pre>
-function drawBricks() {
-    for(c=0; c&lt;brickColumnCount; c++) {
-        for(r=0; r&lt;brickRowCount; r++) {
-            if(bricks[c][r].status == 1) {
-                ctx.beginPath();
-                var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
-                var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
-                bricks[c][r].x = brickX;
-                bricks[c][r].y = brickY;
-                ctx.rect(brickX,brickY,brickWidth,brickHeight);
-                ctx.fillStyle = "#0066FF";
-                ctx.fill();
-                ctx.closePath();
-            }
-        }
-    }
-}
-</pre>
+<p>Instead of allowing the bounce from all four walls, let's do that for three - left, top and right. Hitting the bottom wall will end the game. So, let's focus on the top-bottom statement and split it in two:</p>
 
-<pre>
-ctx.clearRect(0,0,480,320);
-drawBricks();
-</pre>
-
-<p>There's that function called drawBricks that will draw bricks on the screen if their status is active.</p>
-
-<p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/8d8pL6qg/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
-
-<p>Exercise: try changing the number of bricks in a row or a column and their positions.</p>
-
-<p>Now, you can get back to the <a href="">index page</a> or go to the second chapter: <a href="">bounce off the walls</a>.</p>
-
-<p>----------</p>
-
-<h2 id="collision">Collision detection</h2>
-
-<p>So we have the running ball and have drew the whole brick field, but the ball is going "through" them. The obvious next step is to have the collision detection, so the ball can bounce off of the given brick removing it from the scene.</p>
-
-<pre>
-function drawBricks() {
-    for(c=0; c&lt;brickColumnCount; c++) {
-        for(r=0; r&lt;brickRowCount; r++) {
-            if(bricks[c][r].status == 1) {
-                ctx.beginPath();
-                var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
-                var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
-                bricks[c][r].x = brickX;
-                bricks[c][r].y = brickY;
-                ctx.rect(brickX,brickY,brickWidth,brickHeight);
-                ctx.fillStyle = "#0066FF";
-                ctx.fill();
-                ctx.closePath();
-            }
-        }
-    }
-}
-</pre>
-
-<p>The function is executed in the main draw [function], so we're checking that on every [frame]. Add collisionDetection(); in the draw().</p>
-
-<p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/reL7e4rk/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
-
-<p>Exercise: ?</p>
-
-<h2 id="gameover">Game over</h2>
-
-<p>The ball is bouncing from the bricks, but it will do it indefinitely even if all the bricks are removed. In the specific version you just can't lose - let's work on that.</p>
-
-<pre>
-if(y + dy &lt; 10) {
+<pre class="brush: js">if(y + dy &lt; ballRadius) {
     dy = -dy;
 }
-else if(y + dy > canvas.height-10) {
-    if (x > paddleX &amp;&amp; x &lt; paddleX + paddleWidth) {
+else if(y + dy &gt; canvas.height-ballRadius) {
+    dy = -dy;
+}</pre>
+
+<p>The first statement is for top edge, so we will leave it as it is. The bottom one will be our "game over" where we show the alert and restart the game by reloading the page:</p>
+
+<pre class="brush: js">if(y + dy &lt; ballRadius) {
+    dy = -dy;
+}
+else if(y + dy &gt; canvas.height-ballRadius) {
+    alert("GAME OVER");
+    document.location.reload();
+}</pre>
+
+<p>Now the last thing to do is to create some kind of collision detection between the ball and the paddle, so it could bounce off of it and get back to the play area. The easiest thing to do is to check whether the center of the ball is between the left and right edges of the paddle:</p>
+
+
+<pre class="brush: js">if(y + dy &lt; ballRadius) {
+    dy = -dy;
+}
+else if(y + dy &gt; canvas.height-ballRadius) {
+    if(x &gt; paddleX &amp;&amp; x &lt; paddleX + paddleWidth) {
         dy = -dy;
-        dx = 10*((x-(paddleX+paddleWidth/2))/paddleWidth);
     }
     else {
         alert("GAME OVER");
         document.location.reload();
     }
-}
-</pre>
+}</pre>
 
-<p>Now the ball bounces off of the three walls, but when it reaches the floor the game is lost.</p>
+<p>If the ball hits the bottom edge of the Canvas we're checking whether it is touching the paddle: if yes, then it bounces off just like from the usual wall, but if not, then the game is lost and we reload the page to start again.</p>
 
-<!-- <p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/CODE/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p> -->
+<p><iframe width="100%" height="320" src="https://jsfiddle.net/end3r/z4zy79fo/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
-<p>Exercise: ?</p>
+<div class="summary"><p>Exercise: make the ball move faster when it hits the paddle.</p></div>
 
-<h2 id="mouse">Mouse controls</h2>
+<p>Now, you can get back to <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">this tutorial's index page</a> or continue to the sixth chapter: <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Build_the_brick_field">Build the brick field</a>.</p>
 
-<p>The keyboard controls are working quite ok, but we can extend that and add an extra controller - the mouse. It's even easier to control the game with the mouse than with the keyboard. All you need is the listened and based on the passed object with the pointer position we'll update the position of the paddle:</p>
+<p>----------</p>
 
-<pre>
-document.addEventListener("mousemove", mouseMoveHandler, false);
-</pre>
+<h2 id="bricks">6. Build the brick field</h2>
 
-<pre>
-function mouseMoveHandler(e) {
-    if(e.pageX > paddleWidth/2 &amp;&amp; e.pageX &lt; canvas.width-paddleWidth/2) {
-        paddleX = e.pageX-paddleWidth/2;
+<div class="summary"><p>This is the <strong>6th step</strong> out of 10 of the <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">Gamedev Canvas tutorial</a>.</p></div>
+
+<p>After modifying the gameplay mechanics we are able to lose, but it might get boring if all you do is bounce the ball off the walls and the paddle. It would be cool to make the game harder, add some obstacles or something like that. We could spawn a bunch of bricks to destroy for the player, so it gets both more interesting and challenging.</p>
+
+<p>We will render a few lines of bricks, with a few of them in every line. We can do it in a nested loop going through the two-dimentional array, but first - let's start with some variables:</p>
+
+<pre class="brush: js">var brickRowCount = 5;
+var brickColumnCount = 3;
+var brickWidth = 75;
+var brickHeight = 20;
+var brickPadding = 10;
+var brickOffsetTop = 30;
+var brickOffsetLeft = 30;</pre>
+
+<p>That's all we need: number of rows and columns containing the bricks, their width and height, the padding between the bricks so they won't touch with each other and the top and left offset so they won't start from the edge of the Canvas.</p>
+
+<p>There will be a simple structure for every brick: it will contain the <code>x</code> and <code>y</code> position to paint it on the screen:</p>
+
+<pre class="brush: js">var bricks = [];
+for(c=0; c&lt;brickColumnCount; c++) {
+    bricks[c] = [];
+    for(r=0; r&lt;brickRowCount; r++) {
+        bricks[c][r] = { x: 0, y: 0 };
     }
-}
-</pre>
+}</pre>
 
-<p>The paddle will follow the position of the mouse cursor, but we're restricting the movement to the size of the Canvas, so it won't dissapear on either sides of it.</p>
+<p>The code above will loop through the rows and columns and create new bricks - a JavaScript objects inside the two-dimentional array that we will use for collision detection later. Now, onto the painting part - let's create a function for that:</p>
 
-<!-- <p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/CODE/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p> -->
+<pre class="brush: js">function drawBricks() {
+    for(c=0; c&lt;brickColumnCount; c++) {
+        for(r=0; r&lt;brickRowCount; r++) {
+            bricks[c][r].x = 0;
+            bricks[c][r].y = 0;
+            ctx.beginPath();
+            ctx.rect(0, 0, brickWidth, brickHeight);
+            ctx.fillStyle = "#0095DD";
+            ctx.fill();
+            ctx.closePath();
+        }
+    }
+}</pre>
 
-<p>Exercise: ?</p>
+<p>Again, we're looping through the rows and columns to set <code>x</code> and <code>y</code> position of the bricks and paint them on the Canvas. The problem is we're painting them all in one place, at the top left edge of the game at the <code>0,0</code> coordinates. The painting itself looks exactly as we know it from the paddle, so let's focus on the calculations that will make the bricks look as we want them on the screen - few per row and column equally separated from each other:</p>
 
-<h2 id="score">Track the score and win</h2>
+<pre class="brush: js">var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
+var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;</pre>
 
-<p>Destroying the blocks is cool, but let's count the points based on that, so we have the precise indicator of how many blocks were already destroyed.</p>
+<p>Thanks to this every single brick will be placed in the corresponding row and column, will start after the width and padding of the previous ones and exerything will be shifted by the offset, both horizontally and vertically. Every <code>x</code> is <code>r</code> times the brick width plus its padding, plus the offset from the left, and every <code>y</code> is <code>c</code> times the brick height plus its padding, plus the offset from the top. The final version of the <code>drawBricks()</code> function, after assigning the <code>brickX</code> and <code>brickY</code> instead of zeroes, will look like this:</p>
 
-<pre>var score = 0;</pre>
+<pre class="brush: js">function drawBricks() {
+    for(c=0; c&lt;brickColumnCount; c++) {
+        for(r=0; r&lt;brickRowCount; r++) {
+            var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
+            var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
+            bricks[c][r].x = brickX;
+            bricks[c][r].y = brickY;
+            ctx.beginPath();
+            ctx.rect(brickX, brickY, brickWidth, brickHeight);
+            ctx.fillStyle = "#0095DD";
+            ctx.fill();
+            ctx.closePath();
+        }
+    }
+}</pre>
 
-<pre>
-function drawScore() {
-    ctx.font="16px Arial";
-    ctx.fillStyle = "#666";
-    ctx.fillText("Score: "+score,(canvas.width-65)/2,20);
-}
-</pre>
+<p>Remember about the bricks array with the <code>x</code> and <code>y</code> stored in every single object - we will need them for the collision detection calculations.</p>
 
-<p>Execute drawScore(); in draw. We can play the game and get the points, but in the best case scenario we'll be playing it indefinitely, if we'll bounce the ball with the paddle. It would be great to be able to actually finish the game when all the blocks are destroyed.</p>
+<p>That's it - the last thing to do is to add <code>drawBricks()</code> somewhere in the <code>draw()</code> function, preferably at the beginning: between the clearing of the Canvas and drawing the ball, so it looks like this:</p>
 
-<pre>alert("GAME OVER");</pre>
+<pre class="brush: js">function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBricks();
+    drawBall();
+    drawPaddle();
+    // ...
+}</pre>
 
-<p>Thanks to this we'll be able to actually win the game, which is quite important when it comes to games.</p>
+<p>The gameplay is a lot more interesting now:</p>
 
-<!-- <p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/CODE/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p> -->
+<p><iframe width="100%" height="320" src="https://jsfiddle.net/end3r/5e24k7ho/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
-<p>Exercise: ?</p>
+<div class="summary"><p>Exercise: try changing the number of bricks in a row or a column, or their positions.</p></div>
 
-<h2 id="finish">Finishing up</h2>
+<p>Now, you can get back to <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">this tutorial's index page</a> or continue to the seventh chapter: <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Collision_detection">Collision detection</a>.</p>
 
-<p>The game itself may be considered as finished, but there's always some room for improvements. We can for example change the angle of the ball bouncing from the paddle, so the game won't be the same all the time.</p>
+<p>----------</p>
 
-<pre>dx = 10*((x-(paddleX+paddleWidth/2))/paddleWidth);</pre>
+<h2 id="collision">7. Collision detection</h2>
 
-<p>Another thing we can add is the ability to have more than one life. We could make a mistake and still be able to finish the game. Implementing the lives of quite straightforward:</p>
+<div class="summary"><p>This is the <strong>7th step</strong> out of 10 of the <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">Gamedev Canvas tutorial</a>.</p></div>
 
-<pre>
-var lives = 3;
-</pre>
+<p>We have the bricks painted on the screen already, but the ball goes through them - we should think about adding a collision detection, so it could bounce off. It's our decision how to do it - it could be tough to calculate whether the ball is touching the rectangle or not, there are no helper functions on Canvas for that if we wanted to use the ball's radius for distance. For the sake of this tutorial we will do it the easiest way possible - we will check if the center of the ball is colliding with any of the given bricks. It won't be perfect, but it will do the job and will just work, which is enough for our case.</p>
 
-<pre>
-function drawLives() {
-    ctx.font="16px Arial";
+<p>We're looping through all the bricks to compare every single one with the ball coordinates. For better readability of the code we will define the <code>b</code> variable for storing the brick object in every loop step.</p>
+
+<pre class="brush: js">function collisionDetection() {
+    for(c=0; c&lt;brickColumnCount; c++) {
+        for(r=0; r&lt;brickRowCount; r++) {
+            var b = bricks[c][r];
+            // calculations
+        }
+    }
+}</pre>
+
+<p>If the center of the ball is inside the brick coordinates, change the direction of the ball. To do that we will have to have all four statements being true to have the center of the ball inside the brick:</p>
+
+<ul>
+    <li>x position of the ball is greater than x position of the brick</li>
+    <li>x position of the ball is lower than x position of the brick minus its width</li>
+    <li>y position of the ball is greater than y position of the brick</li>
+    <li>y position of the ball is lower than y position of the brick minus its width</li>
+</ul>
+
+<p>Let's write that down:</p>
+
+<pre class="brush: js">function collisionDetection() {
+    for(c=0; c&lt;brickColumnCount; c++) {
+        for(r=0; r&lt;brickRowCount; r++) {
+            var b = bricks[c][r];
+            if(x &gt; b.x &amp;&amp; x &lt; b.x+brickWidth &amp;&amp; y &gt; b.y &amp;&amp; y &lt; b.y+brickHeight) {
+                dy = -dy;
+            }
+        }
+    }
+}</pre>
+
+<p>It works as expected - the ball is changing its direction. The problem is that the bricks are staying where they are. We have to figure out a way to get rid of the ones we already hit with the ball. We can do that by adding an extra parameter to indicate whether we want to paint it on the screen or not. In the part of the code where we initialize the bricks let's add the status variable:</p>
+
+<pre class="brush: js">var bricks = [];
+for(c=0; c&lt;brickColumnCount; c++) {
+    bricks[c] = [];
+    for(r=0; r&lt;brickRowCount; r++) {
+        bricks[c][r] = { x: 0, y: 0, status: 1 };
+    }
+}</pre>
+
+<p>And then check that variable in the <code>drawBricks()</code> function - if it's <code>1</code>, then draw it, but if it's <code>0</code>, then it was hit by the ball and we don't want it on the screen anymore:</p>
+
+<pre class="brush: js">function drawBricks() {
+    for(c=0; c&lt;brickColumnCount; c++) {
+        for(r=0; r&lt;brickRowCount; r++) {
+            if(bricks[c][r].status == 1) {
+                var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
+                var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
+                bricks[c][r].x = brickX;
+                bricks[c][r].y = brickY;
+                ctx.beginPath();
+                ctx.rect(brickX, brickY, brickWidth, brickHeight);
+                ctx.fillStyle = "#0095DD";
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+    }
+}</pre>
+
+<p>Now we only need to include that in the <code>collisionDetection()</code> function: if the brick is active (its status is <code>1</code>) we will check whether the collision happens and if yes, set the status of the given brick to <code>0</code>, so it won't be painted on the screen:</p>
+
+<pre class="brush: js">function collisionDetection() {
+    for(c=0; c&lt;brickColumnCount; c++) {
+        for(r=0; r&lt;brickRowCount; r++) {
+            var b = bricks[c][r];
+            if(b.status == 1) {
+                if(x &gt; b.x &amp;&amp; x &lt; b.x+brickWidth &amp;&amp; y &gt; b.y &amp;&amp; y &lt; b.y+brickHeight) {
+                    dy = -dy;
+                    b.status = 0;
+                }
+            }
+        }
+    }
+}</pre>
+
+<p>The last thing to do is to add <code>collisionDetection()</code> to our main <code>draw()</code> function:</p>
+
+<pre class="brush: js">function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBricks();
+    drawBall();
+    drawPaddle();
+    collisionDetection();
+    // ...
+}</pre>
+
+<p>That collision detection of the ball will be checked on every frame, with every brick. It's not very efficient, but for our simple game should be more than enough.</p>
+
+<p><iframe width="100%" height="320" src="https://jsfiddle.net/end3r/oyhmvo6e/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<div class="summary"><p>Exercise: change the color of the ball when it hits the brick.</p></div>
+
+<p>Now, you can get back to <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">this tutorial's index page</a> or continue to the eighth chapter: <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Track_the_score_and_win">Track the score and win</a>.</p>
+
+<p>----------</p>
+
+<h2 id="score">8. Track the score and win</h2>
+
+<div class="summary"><p>This is the <strong>8th step</strong> out of 10 of the <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">Gamedev Canvas tutorial</a>.</p></div>
+
+<p>Destroying the bricks is really cool, but to be even more awesome we could keep track of the points awarded for every brick we hit. That way we can see our score throughout the game, and eventually impress our friends. We will need a variable for that:</p>
+
+<pre class="brush: js">var score = 0;</pre>
+
+<p>And then there's the <code>drawScore()</code> function:</p>
+
+<pre class="brush: js">function drawScore() {
+    ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("Lives: "+lives,canvas.width-65,20);
+    ctx.fillText("Score: "+score, 8, 20);
+}</pre>
+
+<p>Drawing the font is similar to drawing a shape. The font definition looks exactly like the one in CSS - we can set the size and font type in the font method. Then there's <code>fillStyle</code> for the color of the font and <code>fillText</code> to set the text. First parameter is the text itself where we can add our variable to show the current number of points, and the last two parameters are the coordinates. Adding that to our <code>draw()</code> function executed on every frame makes it up to date with everything else on the screen:</p>
+
+<pre class="brush: js">function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBricks();
+    drawBall();
+    drawPaddle();
+    drawScore();
+    collisionDetection();
+    // ...
+}</pre>
+
+<p>Collecting the points works good, but we won't be removing them forever - they will end at some point. It's the main purpose of the game after all, so on every brick we hit we will increase the score and check if we collected all the points already:
+
+<pre class="brush: js">score++;
+if(score == brickRowCount*brickColumnCount) {
+    alert("YOU WIN, CONGRATS!");
+    document.location.reload();
+}</pre>
+
+<p>Let's add that to the <code>collisionDetection()</code> function:</p>
+
+<pre class="brush: js">function collisionDetection() {
+    for(c=0; c&lt;brickColumnCount; c++) {
+        for(r=0; r&lt;brickRowCount; r++) {
+            var b = bricks[c][r];
+            if(b.status == 1) {
+                if(x &gt; b.x &amp;&amp; x &lt; b.x+brickWidth &amp;&amp; y &gt; b.y &amp;&amp; y &lt; b.y+brickHeight) {
+                    dy = -dy;
+                    b.status = 0;
+                    score++;
+                    if(score == brickRowCount*brickColumnCount) {
+                        alert("YOU WIN, CONGRATS!");
+                        document.location.reload();
+                    }
+                }
+            }
+        }
+    }
+}</pre>
+
+<p>Thanks to this we'll be able to actually win the game when we destroy all the bricks, which is quite important when it comes to games. The <code>document.location.reload()</code> will reload the page and start the game again after we click the confirmation alert.</p>
+
+<p><iframe width="100%" height="320" src="https://jsfiddle.net/end3r/mvfkcydz/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<div class="summary"><p>Exercise: add more points per brick hit, print out the number of collected points in the alert.</p></div>
+
+<p>Now, you can get back to <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">this tutorial's index page</a> or continue to the ninth chapter: <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Mouse_controls">Mouse controls</a>.</p>
+
+<p>----------</p>
+
+<h2 id="mouse">9. Mouse controls</h2>
+
+<div class="summary"><p>This is the <strong>9th step</strong> out of 10 of the <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">Gamedev Canvas tutorial</a>.</p></div>
+
+<p>The game itself is actually finished, so let's work on polishing it up. We already have the keyboard controls, but we could easily add mouse controls too. It's even easier: all we need is the listener for the mouse move event:</p>
+
+<pre class="brush: js">document.addEventListener("mousemove", mouseMoveHandler, false);</pre>
+
+<p>We can update the paddle position based on the pointer coordinates, the handler function is doing exatly that:</p>
+
+<pre class="brush: js">function mouseMoveHandler(e) {
+    var relativeX = e.clientX - canvas.offsetLeft;
+    if(relativeX &gt; 0 &amp;&amp; relativeX &lt; canvas.width) {
+        paddleX = relativeX - paddleWidth/2;
+    }
+}</pre>
+
+<p>If the <code>relativeX</code> (the relative position of the pointer on the Canvas) is greater than zero and lower than the Canvas width, which means the pointer is within the Canvas boundaries, then the <code>paddleX</code> position (anchored on the left edge of the paddle) will be set to the <code>relativeX</code> value minus half the width of the paddle.</p>
+
+<p>The paddle will follow the position of the mouse cursor, but we're restricting the movement to the size of the Canvas, so it won't dissapear on either sides of it completely.</p>
+
+<p><iframe width="100%" height="320" src="https://jsfiddle.net/end3r/L3gngab5/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<div class="summary"><p>Exercise: adjust the boundaries of the paddle movement, so the whole paddle will be visible on both edges of the Canvas instead of only the half of it.</p></div>
+
+<p>Now, you can get back to <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">this tutorial's index page</a> or continue to the last, tenth chapter: <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Finishing_up">Finishing up</a>.</p>
+
+<p>----------</p>
+
+<h2 id="finish">10. Finishing up</h2>
+
+<div class="summary"><p>This is the <strong>10th step</strong> out of 10 of the <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">Gamedev Canvas tutorial</a>.</p></div>
+
+<p>There's always room for improvements. We can, for example, offer more than one life to the player. He could make a mistake or two and still be able to finish the game. Implementing lives is quite straightforward:</p>
+
+<pre class="brush: js">var lives = 3;</pre>
+
+<p>Drawing the life counter looks almost the same as drawing the score counter:</p>
+
+<pre class="brush: js">function drawLives() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+}</pre>
+
+<p>Instead of ending the game immediately, we will decrease the number of lives until they are available. We can also reset the ball and the paddle positions when the player lose the life. So, in the <code>draw()</code> function instead of:</p>
+
+<pre class="brush: js">alert("GAME OVER");
+document.location.reload();</pre>
+
+<p>We can write something like this:</p>
+
+<pre class="brush: js">lives--;
+if(!lives) {
+    alert("GAME OVER");
+    document.location.reload();
 }
-</pre>
+else {
+    x = canvas.width/2;
+    y = canvas.height-30;
+    dx = 3;
+    dy = -3;
+    paddleX = (canvas.width-paddleWidth)/2;
+}</pre>
 
-<p>Execute drawLives(); in draw. Now something not about the game mechanic itself, but the way it is rendered. The requestAnimationFrame helps the browser render the game better than with the fixed framerate.</p>
+<p>When the ball hits the bottom edge of the screen, we're subtracting one life out of the ones the player have. If he run out of lives, the game is lost. If he still have any lives left, then the position of the ball and the paddle are reset, along with the movement of the ball.</p>
 
-<!-- <p><iframe width="100%" height="300" src="https://jsfiddle.net/end3r/CODE/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p> -->
+<p>Remember to add <code>drawLives()</code> to the <code>draw()</code> function:</p>
 
-<p>Exercise: ?</p>
+<pre class="brush: js">function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBricks();
+    drawBall();
+    drawPaddle();
+    drawScore();
+    drawLives();
+    collisionDetection();
+    // ...
+}</pre>
 
-<h2>Summary</h2>
+<p>Now, let's work on something not conntected to the game mechanic itself, but the way it is rendered. The <code>requestAnimationFrame</code> helps the browser render the game better than with the fixed framerate of <code>setInterval</code> we have implemented now. Instead of:</p>
 
-<p>Summarizing the whole experience - if you know the basics, now you can learn some gamedev with framework like the one about the Cyber Orb game with Phaser.</p>
+<pre class="brush: js">function draw() {
+    // ...
+}
+setInterval(draw, 10);</pre>
+
+<p>We will execute the <code>draw()</code> function once at the end of the JavaScript code and then request the frame from the browser at the very end of the <code>draw()</code> function itself:</p>
+
+<pre class="brush: js">function draw() {
+    // ...
+    requestAnimationFrame(draw);
+}
+draw();</pre>
+
+<p>Now the <code>draw()</code> function gets executed again and again within the <code>requestAnimationFrame</code>, but instead of the fixed 10 miliseconds frame we are giving control of the framerate back to the browser. It will sync the framerate accordingly and render the shapes only if needed. That way we will have the game painted of the screen as smooth as possible.</p>
+
+<p>That's all - the final version of the game is ready:</p>
+
+<p><iframe width="100%" height="320" src="https://jsfiddle.net/end3r/9temh0ta/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<div class="summary"><p>Exercise: change the number of lives and the angle the ball bounces off the paddle.</p></div>
+
+<p>You've finished the lessons, congratulations! You already know the basics of Canvas manipulations and the logic behing making games. Now it's a good time to learn some frameworks and continue game development. You can check out the <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/HTML5_Gamedev_Phaser_Device_Orientation">Cyber Orb built in Phaser</a> tutorial or look through the <a href="https://developer.mozilla.org/en/docs/Games">Games section on MDN</a> for inspiration and more knowledge.</p>
+
+<p>Now, you can get back to <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">this tutorial's index page</a>.</p>
 
 </body>
 </html>

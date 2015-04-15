@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Gamedev Workshop - lesson 2: move the ball</title>
+    <title>Gamedev Canvas Workshop - lesson 2: move the ball</title>
     <style>* { padding: 0; margin: 0; } canvas { background: #eee; display: block; margin: 0 auto; }</style>
 </head>
 <body>
@@ -17,13 +17,17 @@
     var dx = 2;
     var dy = -2;
 
-    function draw() {
-        ctx.clearRect(0,0,480,320);
+    function drawBall() {
         ctx.beginPath();
-        ctx.arc(x, y, 10, 0, Math.PI*2, true);
-        ctx.fillStyle = "#009900";
+        ctx.arc(x, y, 10, 0, Math.PI*2);
+        ctx.fillStyle = "#0095DD";
         ctx.fill();
         ctx.closePath();
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawBall();
         x += dx;
         y += dy;
     }
