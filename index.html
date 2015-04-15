@@ -229,10 +229,9 @@ We can move the drawing of the ball to the separate function:</p>
     y += dy;
 }</pre>
 
-
 <p>You can check it for yourself in the live demo below, and play with it a bit to see how it works:</p>
 
-<p><iframe width="100%" height="355" src="https://jsfiddle.net/end3r/mvLqo56r/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>https://jsfiddle.net/end3r/3x5foxb1/
+<p><iframe width="100%" height="415" src="https://jsfiddle.net/end3r/3x5foxb1/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
 
 <div class="summary"><p>Exercise: try changing the speed or the direction of the moving ball.</p></div>
 
@@ -244,7 +243,7 @@ We can move the drawing of the ball to the separate function:</p>
 
 <div class="summary"><p>This is the <strong>3rd step</strong> out of 10 of the <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch">Gamedev Canvas tutorial</a>.</p></div>
 
-<p>It's cool to see the ball moving, but it quickly disappears from the screen. To overcome that we can try and implement the simplest possible concept of collision detection (which will be explained <a href="">later</a> in more detail) and make the ball bounce off the four corners of the Canvas. To do that we will check whether the ball is touching (colliding with) the wall, and if yes - we will change its direction of the movement accordingly.</p>
+<p>It's cool to see the ball moving, but it quickly disappears from the screen. To overcome that we can try and implement the simplest possible concept of collision detection (which will be explained <a href="https://developer.mozilla.org/en-US/docs/Games/Workflows/Breakout_game_from_scratch/Collision_detection">later</a> in more detail) and make the ball bounce off the four corners of the Canvas. To do that we will check whether the ball is touching (colliding with) the wall, and if yes - we will change its direction of the movement accordingly.</p>
 
 <p>To have the calculations easier let's define a variable called <code>ballRadius</code> that will hold the radius of the drawn circle and will be used for calculations:</p>
 
