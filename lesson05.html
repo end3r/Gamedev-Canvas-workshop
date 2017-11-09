@@ -74,6 +74,7 @@
                 dy = -dy;
             }
             else {
+                clearInterval(game);
                 alert("GAME OVER");
                 document.location.reload();
             }
@@ -90,7 +91,7 @@
         y += dy;
     }
 
-    setInterval(draw, 10);
+    var game = setInterval(draw, 10);
 </script>
 
 </body>
