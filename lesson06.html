@@ -31,9 +31,9 @@
     var brickOffsetLeft = 30;
 
     var bricks = [];
-    for(c=0; c<brickColumnCount; c++) {
+    for(var c=0; c<brickColumnCount; c++) {
         bricks[c] = [];
-        for(r=0; r<brickRowCount; r++) {
+        for(var r=0; r<brickRowCount; r++) {
             bricks[c][r] = { x: 0, y: 0 };
         }
     }
@@ -73,8 +73,8 @@
         ctx.closePath();
     }
     function drawBricks() {
-        for(c=0; c<brickColumnCount; c++) {
-            for(r=0; r<brickRowCount; r++) {
+        for(var c=0; c<brickColumnCount; c++) {
+            for(var r=0; r<brickRowCount; r++) {
                 var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
                 var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
                 bricks[c][r].x = brickX;
