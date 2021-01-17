@@ -27,18 +27,18 @@
     document.addEventListener("keyup", keyUpHandler, false);
 
     function keyDownHandler(e) {
-        if(e.keyCode == 39) {
+        if(e.code  == "ArrowRight") {
             rightPressed = true;
         }
-        else if(e.keyCode == 37) {
+        else if(e.code == 'ArrowLeft') {
             leftPressed = true;
         }
     }
     function keyUpHandler(e) {
-        if(e.keyCode == 39) {
+        if(e.code  == "ArrowRight") {
             rightPressed = false;
         }
-        else if(e.keyCode == 37) {
+        else if(e.code == 'ArrowLeft') {
             leftPressed = false;
         }
     }
