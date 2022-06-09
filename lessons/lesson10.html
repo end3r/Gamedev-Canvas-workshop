@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<canvas id="myCanvas" width="480" height="320"></canvas>
+<canvas id="myCanvas" width="300" height="600"></canvas>
 
 <script>
     var canvas = document.getElementById("myCanvas");
@@ -18,15 +18,15 @@
     var dx = 2;
     var dy = -2;
     var paddleHeight = 10;
-    var paddleWidth = 75;
+    var paddleWidth = 70;
     var paddleX = (canvas.width-paddleWidth)/2;
     var rightPressed = false;
     var leftPressed = false;
-    var brickRowCount = 5;
-    var brickColumnCount = 3;
-    var brickWidth = 75;
-    var brickHeight = 20;
-    var brickPadding = 10;
+    var brickRowCount = 6;
+    var brickColumnCount = 10;
+    var brickWidth = 35;
+    var brickHeight = 25;
+    var brickPadding = 2;
     var brickOffsetTop = 30;
     var brickOffsetLeft = 30;
     var score = 0;
